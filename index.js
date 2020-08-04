@@ -18,15 +18,9 @@ dbConnection();
 //user01
 //LQOB5iwxsTfUKkL8
 
-app.get('/api/usuarios', (req, res) => {
-    res.json({
-        ok: true,
-        usuarios: [{
-            id: 123,
-            nombre: 'Fernando'
-        }]
-    })
-});
+//rutas
+app.use('/api/usuarios', require('./routes/usuarios'));
+
 
 app.listen(process.env.PORT, () => {
         console.log('escuchando por el puerto ' + process.env.PORT);
