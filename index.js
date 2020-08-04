@@ -18,10 +18,13 @@ dbConnection();
 //user01
 //LQOB5iwxsTfUKkL8
 
-app.get('/', (req, res) => {
+app.get('/api/usuarios', (req, res) => {
     res.json({
         ok: true,
-        msg: 'Hola mundo'
+        usuarios: [{
+            id: 123,
+            nombre: 'Fernando'
+        }]
     })
 });
 
