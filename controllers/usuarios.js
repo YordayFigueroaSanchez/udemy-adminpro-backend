@@ -1,3 +1,4 @@
+const { response } = require('express');
 const Usuario = require('../models/usuario');
 
 const getUsuarios = async(req, res) => {
@@ -9,16 +10,30 @@ const getUsuarios = async(req, res) => {
     })
 }
 
-const setUsuarios = async(req, res) => {
-    const usuario = new Usuario(req.body);
+const setUsuarios = async(req, res = response) => {
+    const { email, password, nombre } = req.body;
+    try {
+        const existeMail = await Usuario.findOne({ email });
+        if (existeMail) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'El correo ya esta registrado'
+            });
+        }
+        const usuario = new Usuario(req.body);
+        await usuario.save();
+        res.json({
+            ok: true,
+            usuario
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Error inesperado...mirar log'
+        });
+    }
 
-    await usuario.save();
-
-    res.json({
-        ok: true,
-        usuario
-
-    })
 }
 
 module.exports = {
