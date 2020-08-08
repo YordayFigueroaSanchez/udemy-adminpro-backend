@@ -1,6 +1,6 @@
 const { response } = require('express');
 const Usuario = require('../models/usuario');
-const { validationResult } = require('express-validator');
+
 const getUsuarios = async(req, res) => {
     const usuarios = await Usuario.find({}, 'email nombre role google');
     res.json({
@@ -12,13 +12,6 @@ const getUsuarios = async(req, res) => {
 
 const setUsuarios = async(req, res = response) => {
     const { email, password, nombre } = req.body;
-    const errores = validationResult(req);
-    if (!errores.isEmpty()) {
-        return res.status(400).json({
-            ok: false,
-            errors: errores.mapped()
-        });
-    }
 
     try {
         const existeMail = await Usuario.findOne({ email });
