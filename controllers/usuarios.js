@@ -56,12 +56,9 @@ const actualizarUsuarios = async(req, res = response) => {
             });
         }
         // Actualizaciones
-        const campos = req.body;
-        console.log(campos);
-        if (usuarioBD.email === req.body.email) {
-            delete campos.email;
-        } else {
-            const existeMail = await Usuario.findOne({ email: req.body.email });
+        const { password, google, email, ...campos } = req.body;
+        if (usuarioBD.email !== email) {
+            const existeMail = await Usuario.findOne({ email });
             if (existeMail) {
                 return res.status(400).json({
                     ok: false,
@@ -69,11 +66,7 @@ const actualizarUsuarios = async(req, res = response) => {
                 });
             }
         }
-
-        delete campos.password;
-        delete campos.google;
-        console.log(campos);
-
+        campos.email = email;
         const usuarioActualizado = await Usuario.findByIdAndUpdate(uid, campos, { new: true });
 
         res.json({
