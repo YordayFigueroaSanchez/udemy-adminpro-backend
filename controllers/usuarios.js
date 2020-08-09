@@ -1,6 +1,7 @@
 const { response } = require('express');
 const Usuario = require('../models/usuario');
 const bcrypt = require('bcryptjs');
+const { replaceOne } = require('../models/usuario');
 
 const getUsuarios = async(req, res) => {
     const usuarios = await Usuario.find({}, 'email nombre role google');
@@ -82,8 +83,33 @@ const actualizarUsuarios = async(req, res = response) => {
     }
 }
 
+const borrarUsuarios = async(req, res = response) => {
+    const uid = req.params.id;
+    try {
+        const usuarioBD = await Usuario.findById(uid);
+        if (!usuarioBD) {
+            return res.status(404).json({
+                ok: false,
+                msg: 'El usuario no existe'
+            });
+        }
+        await Usuario.findOneAndDelete(uid);
+        res.status(200).json({
+            ok: true,
+            msg: 'Usuario eliminado'
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            ok: false,
+            msg: 'Error inesperado'
+        });
+    }
+}
+
 module.exports = {
     getUsuarios,
     setUsuarios,
     actualizarUsuarios,
+    borrarUsuarios,
 }
