@@ -3,7 +3,7 @@ Ruta /api/usuarios
  */
 const { Router } = require('express');
 const { check } = require('express-validator');
-const { getUsuarios, setUsuarios } = require('../controllers/usuarios');
+const { getUsuarios, setUsuarios, actualizarUsuarios } = require('../controllers/usuarios');
 const { validarCampos } = require('../middlewares/validar-campos');
 
 const router = Router();
@@ -18,5 +18,12 @@ router.post('/', [
         validarCampos,
     ],
     setUsuarios);
+
+router.put('/:id', [
+    check('nombre', 'El nombre es obligatorio').not().isEmpty(),
+    check('email', 'El email es obligatorio').isEmail(),
+    check('role', 'El role es obligatorio').not().isEmpty(),
+    //validarCampos,
+], actualizarUsuarios);
 
 module.exports = router;

@@ -44,7 +44,53 @@ const setUsuarios = async(req, res = response) => {
 
 }
 
+const actualizarUsuarios = async(req, res = response) => {
+    const uid = req.params.id;
+
+    try {
+        const usuarioBD = await Usuario.findById(uid);
+        if (!usuarioBD) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'No existe el usuario'
+            });
+        }
+        // Actualizaciones
+        const campos = req.body;
+        console.log(campos);
+        if (usuarioBD.email === req.body.email) {
+            delete campos.email;
+        } else {
+            const existeMail = await Usuario.findOne({ email: req.body.email });
+            if (existeMail) {
+                return res.status(400).json({
+                    ok: false,
+                    msg: 'El correo ya existe'
+                });
+            }
+        }
+
+        delete campos.password;
+        delete campos.google;
+        console.log(campos);
+
+        const usuarioActualizado = await Usuario.findByIdAndUpdate(uid, campos, { new: true });
+
+        res.json({
+            ok: true,
+            usuario: usuarioActualizado
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Error inesperado'
+        })
+    }
+}
+
 module.exports = {
     getUsuarios,
     setUsuarios,
+    actualizarUsuarios,
 }
