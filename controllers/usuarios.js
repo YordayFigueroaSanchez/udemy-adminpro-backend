@@ -5,11 +5,16 @@ const { replaceOne } = require('../models/usuario');
 const { generarJWT } = require('../helpers/jwt');
 
 const getUsuarios = async(req, res) => {
-    const usuarios = await Usuario.find({}, 'email nombre role google');
+    const desde = Number(req.query.desde) || 0;
+    const [usuarios, total] = await Promise.all([
+        Usuario.find({}, 'email nombre role google').skip(desde).limit(4),
+        Usuario.count()
+    ]);
     res.json({
         ok: true,
         msg: 'get usuarios',
-        usuarios
+        usuarios,
+        total
     })
 }
 
