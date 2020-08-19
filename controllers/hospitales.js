@@ -5,10 +5,11 @@ const { replaceOne } = require('../models/hospital');
 const { generarJWT } = require('../helpers/jwt');
 
 const getHospitales = async(req, res) => {
-    // const usuarios = await Usuario.find({}, 'email nombre role google');
+    const hospitales = await Hospital.find()
+        .populate('usuario', 'nombre');
     res.json({
         ok: true,
-        msg: 'get hospitales'
+        hospitales
     })
 }
 
