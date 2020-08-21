@@ -5,6 +5,7 @@ const Usuario = require('../models/usuario');
 const Hospital = require('../models/hospital');
 const Medico = require('../models/medico');
 const { v4: uuidv4 } = require('uuid');
+const { actualizarImagen } = require('../helpers/actualizar-imagen');
 
 const fileUpload = async(req, res = response) => {
     const tipo = req.params.tipo;
@@ -64,6 +65,9 @@ const fileUpload = async(req, res = response) => {
             nombreArchivo
         })
     });
+
+    //Actualizar base de datos
+    actualizarImagen(tipo, id, nombreArchivo);
 
 
 }
