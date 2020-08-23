@@ -44,7 +44,6 @@ const actualizarImagen = async(tipo, id, nombreArchivo) => {
             await usuario.save();
             return true;
             break;
-
         default:
             break;
     }

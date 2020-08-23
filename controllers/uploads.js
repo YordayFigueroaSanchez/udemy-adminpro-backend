@@ -1,4 +1,6 @@
 const { response } = require('express');
+const path = require('path');
+const fs = require('fs');
 const bcrypt = require('bcryptjs');
 const { generarJWT } = require('../helpers/jwt');
 const Usuario = require('../models/usuario');
@@ -72,7 +74,23 @@ const fileUpload = async(req, res = response) => {
 
 }
 
+const retornaImagen = (req, res = response) => {
+    const tipo = req.params.tipo;
+    const foto = req.params.foto;
+
+    const pathImagen = path.join(__dirname, `../uploads/${ tipo }/${ foto }`)
+        //imagen por default
+    if (fs.existsSync(pathImagen)) {
+        res.sendfile(pathImagen);
+    } else {
+        const pathImagen = path.join(__dirname, `../uploads/not_available.png`)
+        res.sendfile(pathImagen);
+    }
+
+}
+
 module.exports = {
     fileUpload,
+    retornaImagen,
 
 }
