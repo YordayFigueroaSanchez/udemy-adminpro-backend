@@ -16,6 +16,9 @@ app.use(express.json());
 //database
 dbConnection();
 
+//directorio publico
+app.use(express.static('public'));
+
 //console.log(process.env);
 
 //user01
