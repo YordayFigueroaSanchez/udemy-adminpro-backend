@@ -44,12 +44,36 @@ const googleSingIn = async(req, res = response) => {
     const googleToken = req.body.token;
     try {
         const { name, email, picture } = await googleVerify(googleToken);
+        console.log(name, email, picture);
+        const usuarioDB = await Usuario.findOne({ email });
+        console.log(usuarioDB);
+        let usuario;
+        if (!usuarioDB) {
+            //si no existe el usuario
+            usuario = new Usuario({
+                nombre: name,
+                email,
+                password: '@@@',
+                img: picture,
+                google: true
+            });
+            console.log("prueba no existe usuario");
+        } else {
+            //existe usuario
+            usuario = usuarioDB;
+            usuario.google = true;
+            console.log("prueba existe usuario");
+        }
+        //Guardar en DB
+        await usuario.save();
+
+        //generar Token
+        const tokenJWT = await generarJWT(usuario.id);
+
         res.json({
             ok: true,
             msg: 'Google Singin',
-            name,
-            email,
-            picture,
+            tokenJWT,
         });
     } catch (error) {
         res.status(401).json({

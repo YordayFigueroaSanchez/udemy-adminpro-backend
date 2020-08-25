@@ -13,7 +13,7 @@ const googleVerify = async(token) => {
         // If request specified a G Suite domain:
         // const domain = payload['hd'];
 
-        console.log(payload);
+        //console.log(payload);
         const { name, email, picture } = payload;
 
         return { name, email, picture };
