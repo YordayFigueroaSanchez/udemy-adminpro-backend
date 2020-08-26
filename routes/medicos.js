@@ -27,7 +27,7 @@ router.post('/', [
     setMedicos);
 
 router.put('/:id', [
-
+        validarJWT
     ],
     actualizarMedicos);
 
