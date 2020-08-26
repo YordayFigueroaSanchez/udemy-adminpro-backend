@@ -38,10 +38,8 @@ const setHospitales = async(req, res = response) => {
 const actualizarHospitales = async(req, res = response) => {
     const id = req.params.id;
     const uid = req.uid;
-    console.log(uid);
     try {
         const hospital = await Hospital.findById(id);
-        console.log(hospital);
         if (!hospital) {
             return res.status(400).json({
                 ok: false,
@@ -52,7 +50,6 @@ const actualizarHospitales = async(req, res = response) => {
             ...req.body,
             usuario: uid
         }
-        console.log(cambiosHospital);
         const hospitalActualizado = await Hospital.findByIdAndUpdate(
             id,
             cambiosHospital, { new: true }
