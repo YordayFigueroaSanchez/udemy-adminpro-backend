@@ -73,7 +73,7 @@ const googleSingIn = async(req, res = response) => {
         res.json({
             ok: true,
             msg: 'Google Singin',
-            tokenJWT,
+            token:tokenJWT,
         });
     } catch (error) {
         res.status(401).json({
