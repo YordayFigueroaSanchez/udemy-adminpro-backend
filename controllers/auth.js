@@ -87,10 +87,16 @@ const renewToken = async(req, res = response) => {
     const uid = req.uid;
     //generar Token
     const tokenJWT = await generarJWT(uid);
+
+    // obtener el usuario UID
+    const usuario = await Usuario.findById( uid );
+    // usuario.password = '@@@';
+    // console.log(usuario);
+
     res.json({
         ok: true,
-        token:tokenJWT
-
+        token: tokenJWT,
+        usuario: usuario    
     });
 }
 module.exports = {
