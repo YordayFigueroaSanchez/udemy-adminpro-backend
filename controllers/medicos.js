@@ -8,7 +8,7 @@ const { generarJWT } = require('../helpers/jwt');
 const getMedicos = async(req, res) => {
     const medicos = await Medico.find()
         .populate('usuario', 'nombre')
-        .populate('hospital', 'nombre');
+        .populate('hospital', 'nombre img');
     res.json({
         ok: true,
         medicos
