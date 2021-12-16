@@ -12,7 +12,7 @@ const { validarJWT } = require('../middlewares/validar-jwt');
 
 const router = Router();
 
-router.get('/:parametro', [
+router.get('/global/:parametro', [
     validarJWT
 ], getTodo);
 
