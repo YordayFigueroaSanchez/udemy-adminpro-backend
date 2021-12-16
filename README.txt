@@ -8,3 +8,4 @@
 223 componente de medico, medicos y servicio de medicos
 231 cargar un medico seleccionado
 232 actualizar medico
+234 guardar cambios de la seccion
