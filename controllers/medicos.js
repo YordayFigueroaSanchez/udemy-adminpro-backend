@@ -15,6 +15,28 @@ const getMedicos = async(req, res) => {
     })
 }
 
+const getMedicoById = async(req, res) => {
+    const id = req.params.id;
+    try {
+        
+        const medico = await Medico.findById(id)
+            .populate('usuario', 'nombre')
+            .populate('hospital', 'nombre img');
+        res.json({
+            ok: true,
+            medico
+        })
+
+    } catch (error) {
+        console.log(error);
+        res.json({
+            ok: false,
+            msg:    'Medico no encontrado'
+        })
+
+    }
+}
+
 const setMedicos = async(req, res = response) => {
     const uid = req.uid;
     const medico = new Medico({
@@ -40,7 +62,7 @@ const setMedicos = async(req, res = response) => {
 const actualizarMedicos = async(req, res = response) => {
     const id = req.params.id;
     const uid = req.uid;
-    const idHospital = req.body.idHospital;
+    const hospital = req.body.hospital;
     const nombre = req.body.nombre;
 
     try {
@@ -51,8 +73,8 @@ const actualizarMedicos = async(req, res = response) => {
                 msg: 'Medico no encontrado por id'
             });
         }
-        const hospital = await Hospital.findById(idHospital);
-        if (!hospital) {
+        const hospitalResp = await Hospital.findById(hospital);
+        if (!hospitalResp) {
             return res.status(400).json({
                 ok: false,
                 msg: 'Hospital no encontrado por id'
@@ -61,7 +83,7 @@ const actualizarMedicos = async(req, res = response) => {
         const cambiosMedico = {
             nombre: nombre,
             usuario: uid,
-            hospital: hospital._id
+            hospital: hospitalResp._id
         }
         const medicoActualizado = await Medico.findByIdAndUpdate(
             id,
@@ -120,4 +142,5 @@ module.exports = {
     setMedicos,
     actualizarMedicos,
     borrarMedicos,
+    getMedicoById,
 }

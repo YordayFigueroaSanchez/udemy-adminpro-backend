@@ -6,3 +6,5 @@
     backend
         no permite modificar correo de google
 223 componente de medico, medicos y servicio de medicos
+231 cargar un medico seleccionado
+232 actualizar medico
