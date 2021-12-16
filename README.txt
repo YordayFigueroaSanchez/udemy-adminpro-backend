@@ -9,3 +9,4 @@
 231 cargar un medico seleccionado
 232 actualizar medico
 234 guardar cambios de la seccion
+241 menu del lado del servidor
