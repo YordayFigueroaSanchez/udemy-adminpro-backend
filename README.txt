@@ -12,3 +12,4 @@
 241 menu del lado del servidor
 244 validar el ADMIN_ROLE en nuestro backend
     tratamiento de ADMIN_ROL en el backend
+245 validar si es el mismo usuario o un admin
