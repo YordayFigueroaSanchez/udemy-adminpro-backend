@@ -10,3 +10,5 @@
 232 actualizar medico
 234 guardar cambios de la seccion
 241 menu del lado del servidor
+244 validar el ADMIN_ROLE en nuestro backend
+    tratamiento de ADMIN_ROL en el backend
