@@ -28,3 +28,6 @@
 
         https://yfsanchez-backend-node.herokuapp.com/
 252 angular - generar el build de destibucion
+    copiar de la app al backend/public
+    subir actualizacion
+    
