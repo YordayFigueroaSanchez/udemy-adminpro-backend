@@ -13,3 +13,6 @@
 244 validar el ADMIN_ROLE en nuestro backend
     tratamiento de ADMIN_ROL en el backend
 245 validar si es el mismo usuario o un admin
+251 desplegar backend
+    heroku
+        5 aplicaciones gratuitas, que se suspende cada 30 minutos
