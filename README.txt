@@ -16,3 +16,15 @@
 251 desplegar backend
     heroku
         5 aplicaciones gratuitas, que se suspende cada 30 minutos
+
+        heroku login
+
+        heroku git:clone -a yfsanchez-backend-node
+        cd yfsanchez-backend-node
+
+        git add .
+        git commit -am "make it better"
+        git push heroku master
+
+        https://yfsanchez-backend-node.herokuapp.com/
+252 angular - generar el build de destibucion
